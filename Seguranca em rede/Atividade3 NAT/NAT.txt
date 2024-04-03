@@ -1,0 +1,125 @@
+Primeiro 
+
+sys
+sys FW1
+
+interface G1/0/1
+ip address 10.1.2.1 24
+quit
+
+interface G1/0/2
+ip address 40.1.1.1 24
+quit
+
+interface G1/0/3
+ip address 10.1.1.1 24
+quit
+
+
+firewall zone trust
+add interface G1/0/1
+quit
+firewall zone untrust
+add interface G1/0/2
+quit
+firewall zone dmz
+add interface G1/0/3
+quit
+
+
+security-policy 
+rule name policy_sec 
+source-zone trust 
+destination-zone untrust 
+action permit
+quit
+
+
+nat address-group natpool
+section 2.2.2.2 2.2.2.5
+
+
+nat-policy
+rule name source_nat
+destination-zone untrust 
+source-zone trust 
+action source-nat address-group natpool
+quit
+
+
+
+
+
+system-view
+sysname SW1
+vlan batch 10
+
+interface GigabitEthernet 0/0/1
+port link-type access
+port default vlan 10
+quit
+
+
+system-view
+sysname SW2
+vlan batch 10
+
+interface GigabitEthernet 0/0/2
+port link-type access
+port default vlan 10
+quit
+
+
+Segundo
+
+system-view
+
+interface G1/0/1
+ip address 10.1.2.1 24
+quit
+
+interface G1/0/2
+ip address 40.1.1.1 24
+quit
+
+interface G1/0/3
+ip address 10.1.1.1 24
+quit
+
+
+security-policy 
+rule name bidectinal_nat 
+source-zone untrust 
+destination-zone dmz 
+action permit
+service ftp
+quit
+
+
+nat server ftpserver protocol tcp global 40.1.1.2 ftp inside 10.1.1.100 ftp
+
+nat address-group natpool2
+section 10.1.1.10 10.1.1.20
+
+firewall interzone dmz untrust
+detect ftp
+quit
+
+nat-policy
+rule name source_nat
+destination-zone dmz
+source-zone untrust 
+source-address 40.1.1.0 24
+action nat address-group natpool2
+
+
+
+
+
+
+
+
+
+
+
+
