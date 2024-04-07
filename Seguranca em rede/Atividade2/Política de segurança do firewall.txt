@@ -1,0 +1,70 @@
+Configurações das interfaces upstream e downstream de FW1
+sys
+sys FW1
+interface G0/0/1
+ip address 10.1.0.1 255.255.255.0
+quit
+
+interface G0/0/2
+ip address 10.2.0.1 255.255.255.0
+quit
+
+firewall zone trust
+add interface G0/0/1
+quit
+
+firewall zone untrust
+add interface G0/0/2
+quit
+
+Política de encaminhamento entre a zona de Confiança e a zona de 
+Desconfiança
+security-policy 
+rule name policy_sec 
+source-zone trust 
+destination-zone untrust 
+action permit
+quit
+
+Configure o switch
+
+sys
+sysname SW1
+vlan batch 10
+
+interface GigabitEthernet 0/0/1
+port link-type access
+port default vlan 10
+quit
+
+interface GigabitEthernet 0/0/2
+port link-type access
+port default vlan 10
+quit
+
+
+sys
+sysname SW2
+vlan batch 10
+
+interface GigabitEthernet 0/0/1
+port link-type access
+port default vlan 10
+quit
+
+interface GigabitEthernet 0/0/2
+port link-type access
+port default vlan 10
+quit
+
+Testes
+
+Execute ping em 10.2.0.10 na CLI do PC1 para verificar se o PC1 pode executar ping no PC2.
+
+ping 10.2.0.10
+
+Execute o comando display firewall session table para visualizar a tabela de sessões do firewall.
+
+display firewall session table 
+
+

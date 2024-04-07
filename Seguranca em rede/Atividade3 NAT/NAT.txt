@@ -58,19 +58,12 @@ interface GigabitEthernet 0/0/1
 port link-type access
 port default vlan 10
 quit
-interface GigabitEthernet 0/0/2
-port link-type access
-port default vlan 10
-quit
+
 
 system-view
 sysname SW2
 vlan batch 10
 
-interface GigabitEthernet 0/0/1
-port link-type access
-port default vlan 10
-quit
 interface GigabitEthernet 0/0/2
 port link-type access
 port default vlan 10
@@ -105,8 +98,6 @@ quit
 
 nat server ftpserver protocol tcp global 40.1.1.2 ftp inside 10.1.1.100 ftp
 
-nat server ftpserver protocol icmp global 40.1.1.2 inside 10.1.1.100
-
 nat address-group natpool2
 section 10.1.1.10 10.1.1.20
 
@@ -115,11 +106,17 @@ detect ftp
 quit
 
 nat-policy
-rule name source_nat_2
+rule name source_nat
 destination-zone dmz
 source-zone untrust 
 source-address 40.1.1.0 24
-action source-nat address-group natpool2
+action nat address-group natpool2
+
+
+
+
+
+
 
 
 

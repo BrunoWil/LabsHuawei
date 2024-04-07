@@ -52,7 +52,7 @@
     </lines>
     <shapes />
     <txttips>
-        <txttip left="222" top="274" right="294" bottom="291" content="Confian?a" fontname="Consolas" fontstyle="0" editsize="100" txtcolor="-16777216" txtbkcolor="-7278960" charset="1" />
-        <txttip left="214" top="426" right="309" bottom="443" content="Desconfian?a" fontname="Consolas" fontstyle="0" editsize="100" txtcolor="-16777216" txtbkcolor="-7278960" charset="1" />
+        <txttip left="222" top="274" right="294" bottom="291" content="Confianca" fontname="Consolas" fontstyle="0" editsize="100" txtcolor="-16777216" txtbkcolor="-7278960" charset="1" />
+        <txttip left="214" top="426" right="309" bottom="443" content="Desconfianca" fontname="Consolas" fontstyle="0" editsize="100" txtcolor="-16777216" txtbkcolor="-7278960" charset="1" />
     </txttips>
 </topo>
